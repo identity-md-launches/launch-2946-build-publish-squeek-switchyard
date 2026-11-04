@@ -8,7 +8,11 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Squeek Switchyard">
     <meta property="og:description" content="Dispatch five wagons of real Sepolia settlement blocks into three tunnels. Lowest overflow wins.">
-    <meta property="og:image" content="./og.svg">
+    <meta property="og:image" content="./og.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#fff4dc">
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
@@ -73,6 +77,8 @@
               <p class="status-item">Clock <span id="clock" class="value">0:00</span> <span class="status-goal">goal under 1:00</span></p>
               <p class="status-item">Overflow <span id="running-overflow" class="value">0</span></p>
             </div>
+
+            <p id="refresh-status" class="note refresh-status" hidden></p>
 
             <ol id="train" class="train" aria-label="Wagons in dispatch order"></ol>
 

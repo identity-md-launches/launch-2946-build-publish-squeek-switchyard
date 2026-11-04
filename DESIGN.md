@@ -1,6 +1,6 @@
 # Squeek Switchyard design
 
-Taken from the final source. Nothing here has been observed in a browser, because rendering could not be run (see `VALIDATION.md`). Sizes and layout behaviour are what the CSS declares.
+Taken from the final source and checked against the production export in Chromium and WebKit. Game screenshots use explicitly synthetic API-shaped responses or the labeled practice board; the public API was unavailable during this revision. See `VALIDATION.md` for coverage and evidence.
 
 ## Overview
 
@@ -37,11 +37,11 @@ These do not change between boards:
 | `--color-practice-soft` | `#e4e9f7` | Practice button fill |
 | `--color-practice-stripe` | `#ffd34d` | Practice banner stripes |
 
-Hand-computed contrast values and their limits are in `VALIDATION.md`.
+Measured rendered contrast pairs and their limits are in `VALIDATION.md`.
 
 ## Typography
 
-No web fonts are loaded, which keeps the site fast. Which face renders depends on the device and has not been checked.
+No web fonts are loaded, which keeps the site fast. The rendered sizes and hierarchy were checked in Chromium and WebKit; the exact system face depends on the device.
 
 - `--font-body`: `ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`
 - `--font-data`: `ui-monospace, "SF Mono", Menlo, Consolas, monospace`, for transaction hashes only
@@ -49,8 +49,8 @@ No web fonts are loaded, which keeps the site fast. Which face renders depends o
 | Token | Size | Role |
 | --- | --- | --- |
 | `--text-2xl` | 2.25rem | `h1` from 62rem up |
-| `--text-xl` | 1.75rem | `h1` on phones, result headline |
-| `--text-lg` | 1.25rem | `h2`, wagon block counts |
+| `--text-xl` | 1.75rem | `h1` on phones |
+| `--text-lg` | 1.25rem | All `h2` headings, including the result, and wagon block counts |
 | `--text-base` | 1rem | Body, `h3`, buttons |
 | `--text-sm` | 0.875rem | Facts, labels, notes, footer |
 
@@ -63,7 +63,7 @@ Spacing uses `--space-1` to `--space-8` (0.25, 0.5, 0.75, 1, 1.5 and 2rem). `.pa
 - **Under 62rem:** one column in this order: header, line, status, train, current wagon, rails, tunnels, rules note, result, controls, manifest, how-to, footer. The train stays five columns and the tunnels three, down to 320px wide. Long labels wrap in place.
 - **62rem and up:** `.layout` becomes `minmax(0, 1fr) 20rem` with the how-to in the side column. Tunnels gain more padding and the manifest becomes two columns.
 
-The CSS is estimated, not measured, to put the tunnels and their Send buttons on the first screen at 390 wide.
+At 390×844 the product, all five wagons and all three Send buttons are visible without scrolling. This was checked with the synthetic API board and the distinct practice board. At 320, 390, 768 and 1440, the result layout has no horizontal overflow. Wagons, tunnels and the result allow words to wrap when text is enlarged to 200%; this prevents labels and the routing table from widening the page.
 
 ## Elevation & Depth
 
@@ -88,6 +88,7 @@ All are patterns rendered by `src/app.js` and styled in `src/styles.css`, not li
 - **Facts (`.facts`)**: label and value rows built on `dl`, used in the current wagon, result and manifest.
 - **Result (`.result`)**: shows after the fifth wagon and receives focus. Holds the player's overflow, best result, time and a routing table.
 - **Notice panel (`.notice-panel`)**: loading and unavailable states. Unavailable gives the reason plus Try again and Practice buttons.
+- **Refresh status (`.refresh-status`)**: an inline note above the train while fetching a replacement. A failure keeps the board playable and explains that the previous board is retained. It clears after a successful replacement.
 - **Status region (`#announcer`)**: a stable `role="status"` element for spoken updates.
 
 ## Do's and Don'ts
@@ -100,3 +101,7 @@ All are patterns rendered by `src/app.js` and styled in `src/styles.css`, not li
 - Don't add a shadow, a seventh type size or a fourth weight.
 
 To add a page, start from `.page`, use the existing tokens, take actions from `.btn`, and show data with `.facts`.
+
+The share asset is `src/og.png` (1200×630); `src/og.svg` retains the editable original artwork. Its text fits inside the canvas. Metadata and the preview server serve the PNG as an image.
+
+Review guidance: Jakub Krehel's Better Interface (MIT, pinned commit `267330e1adfc66a718fb65fa6918c1f06d0a689e`); documentation method: Paul Bakaus's Impeccable (Apache-2.0, pinned commit `9d715cc4f5564a990ca8345abfdd5df6dc9b41c8`).

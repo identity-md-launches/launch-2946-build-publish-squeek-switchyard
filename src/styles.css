@@ -325,6 +325,10 @@ body[data-board="practice"] .source-label::before {
   font-weight: 800;
 }
 
+.refresh-status {
+  margin-block-end: var(--space-3);
+}
+
 .status-goal {
   color: var(--color-ink-muted);
 }
@@ -350,6 +354,7 @@ body[data-board="practice"] .source-label::before {
   background: var(--color-surface);
   font-size: var(--text-sm);
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .wagon::before,
@@ -517,6 +522,7 @@ body[data-board="practice"] .source-label::before {
   border-radius: var(--radius-arch) var(--radius-arch) var(--radius-md) var(--radius-md);
   background: var(--color-surface);
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .tunnel[data-tunnel="1"] {
@@ -601,10 +607,11 @@ body[data-board="practice"] .source-label::before {
   padding: var(--space-4);
   border-radius: var(--radius-md);
   background: var(--color-surface);
+  overflow-wrap: anywhere;
 }
 
 .result h2 {
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   scroll-margin-block-start: var(--space-4);
 }
 

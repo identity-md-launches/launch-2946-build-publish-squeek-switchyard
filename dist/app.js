@@ -46,7 +46,8 @@ function h(tag, props = {}, ...children) {
 /** @type {import('./rules.js').Game | null} */
 let game = null;
 let requestId = 0;
-let startedAt = 0;
+/** @type {number | null} */
+let startedAt = null;
 /** @type {number | null} */
 let finishedAt = null;
 /** @type {{ root: any, state: any, load: any, capacity: any, overflow: any, meter: any, button: any }[]} */
@@ -69,6 +70,7 @@ function show(view) {
 }
 
 function elapsedSeconds() {
+  if (startedAt === null) return 0;
   return Math.floor(((finishedAt ?? performance.now()) - startedAt) / 1000);
 }
 
@@ -80,9 +82,13 @@ function updateClock() {
 async function loadLive(moveFocus) {
   requestId += 1;
   const thisRequest = requestId;
-  game = null;
-  document.body.dataset.board = 'none';
-  show('loading');
+  if (game) {
+    byId('refresh-status').textContent = 'Fetching a new board. You can keep dispatching.';
+    byId('refresh-status').hidden = false;
+  } else {
+    document.body.dataset.board = 'none';
+    show('loading');
+  }
   announce('Fetching settlement batches.');
 
   /** @type {string} */
@@ -111,6 +117,13 @@ async function loadLive(moveFocus) {
   }
   if (thisRequest !== requestId) return;
 
+  if (game) {
+    const message = `Could not refresh: ${reason} You are still on the previous board. Try New game again.`;
+    byId('refresh-status').textContent = message;
+    announce(message);
+    return;
+  }
+
   byId('unavailable-reason').textContent = reason;
   show('unavailable');
   announce(`Live board unavailable. ${reason}`);
@@ -124,8 +137,10 @@ async function loadLive(moveFocus) {
  */
 function startBoard(board, moveFocus) {
   game = createGame(board);
-  startedAt = performance.now();
+  startedAt = null;
   finishedAt = null;
+  byId('refresh-status').hidden = true;
+  byId('refresh-status').textContent = '';
   document.body.dataset.board = board.kind;
   buildBoard(game);
   show('game');
@@ -343,6 +358,7 @@ function renderResult(current, done) {
 /** @param {number} tunnel */
 function dispatch(tunnel) {
   if (!game || isDone(game)) return;
+  if (startedAt === null) startedAt = performance.now();
   const wagonNumber = game.assignment.length + 1;
   game = assign(game, tunnel);
   const stat = tunnelStats(game)[tunnel];
@@ -364,6 +380,8 @@ function undoLast() {
   if (!game || game.assignment.length === 0) return;
   const wagonNumber = game.assignment.length;
   game = undo(game);
+  // Resume from the stopped time, excluding the time spent reading the result.
+  if (finishedAt !== null && startedAt !== null) startedAt += performance.now() - finishedAt;
   finishedAt = null;
   render();
   announce(`Wagon ${wagonNumber} is back on the line.`);
@@ -374,7 +392,7 @@ function undoLast() {
 function replayBoard() {
   if (!game) return;
   game = replay(game);
-  startedAt = performance.now();
+  startedAt = null;
   finishedAt = null;
   render();
   announce('Same board, empty tunnels. Wagon 1 is next.');

@@ -54,6 +54,17 @@ test('selection keeps the latest five, oldest first', () => {
   assert.deepEqual(result.board.wagons.map((w) => w.toRound), [400n, 500n, 600n, 700n, 800n]);
 });
 
+test('the reported confirmationStatus safe field qualifies rows', () => {
+  const rows = [1,2,3,4,5].map(n => {
+    const candidate = row(n, {confirmationStatus:'safe'});
+    delete candidate.safe;
+    return candidate;
+  });
+  assert.equal(selectBoard(payload(rows)).ok, true);
+  rows[4].confirmationStatus = 'pending';
+  assert.equal(selectBoard(payload(rows)).ok, false);
+});
+
 test('selection dedupes on transactionHash plus logIndex only', () => {
   const rows = [row(1), row(1), row(1, { logIndex: 1 }), row(2), row(3), row(4)];
   const result = selectBoard(payload(rows));

@@ -1,0 +1,462 @@
+[
+  {
+    "engine": "chromium",
+    "check": "real live game",
+    "status": "unavailable",
+    "detail": {
+      "reason": "The API could not be reached, or its answer could not be read."
+    }
+  },
+  {
+    "engine": "chromium",
+    "check": "mock API game and timer regression",
+    "status": "passed",
+    "detail": {
+      "capacities": [
+        98,
+        72,
+        49
+      ],
+      "best": 10,
+      "initial": "0:30",
+      "afterUndo": "0:35",
+      "headings": {
+        "title": 28,
+        "result": 20
+      }
+    }
+  },
+  {
+    "engine": "chromium",
+    "check": "replay, keyboard, pending/failed/successful refresh",
+    "status": "passed",
+    "detail": "Same board and receipts on replay; shortcuts toggle; Enter/Space/Tab; network, HTTP 503 and insufficient-row failures retain three assignments; successful GET replaces game."
+  },
+  {
+    "engine": "chromium",
+    "check": "practice fallback, completion, undo and replay",
+    "status": "passed",
+    "detail": "Both initial network failure and four eligible rows offer Practice; fixed board [48,41,44,41,45], visibly distinct; best 10."
+  },
+  {
+    "engine": "chromium",
+    "check": "responsive, text enlargement, reduced motion, resources",
+    "status": "passed",
+    "detail": "No horizontal overflow at 320/390/768/1440 and 200% text enlargement at 390; transitions off with reduced motion; no page errors or failed local resources."
+  },
+  {
+    "engine": "chromium",
+    "check": "rendered contrast",
+    "status": "passed",
+    "detail": {
+      "apiFixture": [
+        {
+          "element": "BODY",
+          "foreground": "rgb(42, 28, 16)",
+          "background": "rgb(255, 244, 220)",
+          "ratio": 15.11
+        },
+        {
+          "element": "lede",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 244, 220)",
+          "ratio": 7.66
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(11, 110, 110)",
+          "ratio": 6.05
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(138, 75, 0)",
+          "ratio": 6.8
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 47, 143)",
+          "ratio": 8.65
+        }
+      ],
+      "practice": [
+        {
+          "element": "BODY",
+          "foreground": "rgb(22, 32, 58)",
+          "background": "rgb(228, 233, 247)",
+          "ratio": 13.29
+        },
+        {
+          "element": "lede",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(228, 233, 247)",
+          "ratio": 7.26
+        },
+        {
+          "element": "practice-banner",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(22, 32, 58)",
+          "ratio": 16.13
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(11, 110, 110)",
+          "ratio": 6.05
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(138, 75, 0)",
+          "ratio": 6.8
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 47, 143)",
+          "ratio": 8.65
+        }
+      ]
+    }
+  },
+  {
+    "engine": "webkit",
+    "check": "real live game",
+    "status": "unavailable",
+    "detail": {
+      "reason": "The API could not be reached, or its answer could not be read."
+    }
+  },
+  {
+    "engine": "webkit",
+    "check": "mock API game and timer regression",
+    "status": "passed",
+    "detail": {
+      "capacities": [
+        98,
+        72,
+        49
+      ],
+      "best": 10,
+      "initial": "0:30",
+      "afterUndo": "0:35",
+      "headings": {
+        "title": 28,
+        "result": 20
+      }
+    }
+  },
+  {
+    "engine": "webkit",
+    "check": "replay, keyboard, pending/failed/successful refresh",
+    "status": "passed",
+    "detail": "Same board and receipts on replay; shortcuts toggle; Enter/Space/Tab; network, HTTP 503 and insufficient-row failures retain three assignments; successful GET replaces game."
+  },
+  {
+    "engine": "webkit",
+    "check": "practice fallback, completion, undo and replay",
+    "status": "passed",
+    "detail": "Both initial network failure and four eligible rows offer Practice; fixed board [48,41,44,41,45], visibly distinct; best 10."
+  },
+  {
+    "engine": "webkit",
+    "check": "responsive, text enlargement, reduced motion, resources",
+    "status": "passed",
+    "detail": "No horizontal overflow at 320/390/768/1440 and 200% text enlargement at 390; transitions off with reduced motion; no page errors or failed local resources."
+  },
+  {
+    "engine": "webkit",
+    "check": "rendered contrast",
+    "status": "passed",
+    "detail": {
+      "apiFixture": [
+        {
+          "element": "BODY",
+          "foreground": "rgb(42, 28, 16)",
+          "background": "rgb(255, 244, 220)",
+          "ratio": 15.11
+        },
+        {
+          "element": "lede",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 244, 220)",
+          "ratio": 7.66
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(11, 110, 110)",
+          "ratio": 6.05
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(138, 75, 0)",
+          "ratio": 6.8
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(94, 74, 54)",
+          "background": "rgb(255, 251, 240)",
+          "ratio": 8.1
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 47, 143)",
+          "ratio": 8.65
+        }
+      ],
+      "practice": [
+        {
+          "element": "BODY",
+          "foreground": "rgb(22, 32, 58)",
+          "background": "rgb(228, 233, 247)",
+          "ratio": 13.29
+        },
+        {
+          "element": "lede",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(228, 233, 247)",
+          "ratio": 7.26
+        },
+        {
+          "element": "practice-banner",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(22, 32, 58)",
+          "ratio": 16.13
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(11, 110, 110)",
+          "ratio": 6.05
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(138, 75, 0)",
+          "ratio": 6.8
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "DT",
+          "foreground": "rgb(63, 74, 102)",
+          "background": "rgb(244, 246, 253)",
+          "ratio": 8.16
+        },
+        {
+          "element": "send",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 47, 143)",
+          "ratio": 8.65
+        }
+      ]
+    }
+  }
+]

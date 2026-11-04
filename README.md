@@ -4,7 +4,7 @@ An unofficial, mobile-first browser puzzle for Squeekchain. You are a hamster ra
 
 The site is static and has no backend, wallet, account, secrets, tracking, wagers or contracts. Its only data source is a public GET to `https://api.squeekchain.com/v1/settlements`.
 
-> **Status: written but never run.** This machine's shell and browser tools failed for the whole session, so the build, tests, typecheck and all browser checks are still outstanding, nothing is committed, and there is no deployed URL yet. See [VALIDATION.md](./VALIDATION.md) before relying on it.
+The production export, typecheck and all 14 unit/export tests pass. Chromium and WebKit pass the fixture game, practice, undo/replay, timer, refresh and responsive checks. A genuine live game remains unverified: the public API returned a Cloudflare 403 challenge during this revision. See [VALIDATION.md](./VALIDATION.md) for results and evidence.
 
 ## Install
 
@@ -37,6 +37,14 @@ npm test            # score math, data selection, undo and replay, and dist matc
 npm run typecheck   # TypeScript over the JSDoc in src/; downloads TypeScript through npx
 ```
 
+For browser regression checks, make Playwright available to Node, or set `IMD_PLAYWRIGHT` to the absolute path of an external installation's `playwright/index.mjs`, then run:
+
+```sh
+node test/browser.mjs
+```
+
+Install Chromium and WebKit through that Playwright installation first. The script serves `dist/` at a temporary `/preview/` subpath, closes its own server and browsers, and writes results to `test/scratch/browser-checks/`. It distinguishes genuine API attempts from synthetic test responses. Optional `CHROMIUM_EXECUTABLE` and `BROWSER_ENGINES` settings select a local Chromium executable or a comma-separated subset of engines.
+
 ## Layout
 
 | Path | Purpose |
@@ -49,8 +57,8 @@ npm run typecheck   # TypeScript over the JSDoc in src/; downloads TypeScript th
 | `DESIGN.md` | Tokens, typography, components and responsive behaviour. |
 | `VALIDATION.md` | What was checked, what was not, and the design review. |
 
-## Before publishing
+## Verification and publishing
 
-1. Run the commands in [VALIDATION.md](./VALIDATION.md#checks-to-run) and fix anything they find.
-2. Compare a live API response with the `isSafeRow` assumption in `src/rules.js:49`. If the field differs, no live game can start.
-3. When the GitHub repository exists, point the footer source links in `src/index.html:150` at it. They currently open the site's own `app.js` and `rules.js`.
+The fixture `[48,41,44,41,45]` produces capacities `[98,72,49]`, a minimum overflow of `10`, and optimal routing `A, B, A, B, C` across all 243 assignments. The clock starts on the first dispatch, stops at the result, and resumes from that stopped time after Undo. Failed refreshes retain the current board and assignments.
+
+IMD publishes the submitted `dist/` and assigns the deployed site and GitHub source URLs after review. Neither URL has been supplied in this workspace, so none is invented here. Footer links expose the site's own game and scoring source in the meantime. All runtime assets use relative paths, including the 1200×630 PNG share card.

@@ -35,9 +35,9 @@ export function parseCount(value) {
   return null;
 }
 
-// ASSUMPTION, not checked against a live response (see VALIDATION.md): the brief says "safe" rows
-// but does not name the field. A row with no recognised signal is rejected, so a mismatch shows the
-// unavailable state and never presents unconfirmed rows as safe.
+// The supplied review observed confirmationStatus: "safe" in the API on 2026-11-04.
+// That field is accepted below; a row with no recognised safety signal is rejected.
+// See VALIDATION.md for this run's independent API availability limitation.
 const SAFE_WORDS = new Set(['safe', 'finalized']);
 const ROW_SAFETY_FIELDS = ['finality', 'safety', 'blockTag', 'confirmationStatus', 'status'];
 const PAYLOAD_SAFETY_FIELDS = ['finality', 'safety', 'blockTag'];

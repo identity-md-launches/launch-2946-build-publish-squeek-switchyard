@@ -22,3 +22,15 @@ test('index.html uses relative asset URLs and has its share tags', () => {
     assert.match(html, pattern);
   }
 });
+
+test('the share card is a 1200 by 630 PNG with large-card metadata', () => {
+  const html = readFileSync(new URL('index.html', dist), 'utf8');
+  assert.match(html, /property="og:image" content="\.\/og.png"/);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/);
+  assert.match(html, /property="og:image:width" content="1200"/);
+  assert.match(html, /property="og:image:height" content="630"/);
+  const png = readFileSync(new URL('og.png', dist));
+  assert.deepEqual(png.subarray(0,8), Buffer.from([137,80,78,71,13,10,26,10]));
+  assert.equal(png.readUInt32BE(16), 1200);
+  assert.equal(png.readUInt32BE(20), 630);
+});

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#fff4dc"/>
   <text x="80" y="170" font-family="system-ui, sans-serif" font-size="96" font-weight="800" fill="#2a1c10">Squeek Switchyard</text>
-  <text x="80" y="240" font-family="system-ui, sans-serif" font-size="40" fill="#5e4a36">Route five wagons into three tunnels. Lowest overflow wins.</text>
+  <text x="80" y="240" font-family="system-ui, sans-serif" font-size="32" fill="#5e4a36">Route five wagons into three tunnels. Lowest overflow wins.</text>
   <g fill="none" stroke-width="12" stroke-dasharray="14 12">
     <path d="M600 300C600 400 200 360 200 480" stroke="#0b6e6e"/>
     <path d="M600 300V480" stroke="#8a4b00"/>
