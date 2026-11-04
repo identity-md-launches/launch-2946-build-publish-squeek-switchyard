@@ -1,0 +1,13 @@
+{
+  "name": "squeek-switchyard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Unofficial hamster rail dispatch puzzle using Squeekchain Sepolia settlement data.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/preview.mjs",
+    "test": "node --test test/rules.test.mjs test/dist.test.mjs",
+    "typecheck": "npx --yes -p typescript@5 tsc -p jsconfig.json"
+  }
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fff4dc"/>
+  <text x="80" y="170" font-family="system-ui, sans-serif" font-size="96" font-weight="800" fill="#2a1c10">Squeek Switchyard</text>
+  <text x="80" y="240" font-family="system-ui, sans-serif" font-size="40" fill="#5e4a36">Route five wagons into three tunnels. Lowest overflow wins.</text>
+  <g fill="none" stroke-width="12" stroke-dasharray="14 12">
+    <path d="M600 300C600 400 200 360 200 480" stroke="#0b6e6e"/>
+    <path d="M600 300V480" stroke="#8a4b00"/>
+    <path d="M600 300C600 400 1000 360 1000 480" stroke="#6b2f8f"/>
+  </g>
+  <g fill="#fffbf0" stroke-width="10">
+    <path d="M80 590V540a120 70 0 0 1 240 0v50z" stroke="#0b6e6e"/>
+    <path d="M480 590V540a120 70 0 0 1 240 0v50z" stroke="#8a4b00"/>
+    <path d="M880 590V540a120 70 0 0 1 240 0v50z" stroke="#6b2f8f"/>
+  </g>
+  <g transform="translate(540 262) scale(1.9)">
+    <circle cx="16" cy="16" r="9" fill="#c98a4b"/>
+    <circle cx="48" cy="16" r="9" fill="#c98a4b"/>
+    <ellipse cx="32" cy="36" rx="25" ry="23" fill="#e0a868"/>
+    <ellipse cx="32" cy="45" rx="16" ry="12" fill="#fff4dc"/>
+    <circle cx="23" cy="33" r="3.5" fill="#2a1c10"/>
+    <circle cx="41" cy="33" r="3.5" fill="#2a1c10"/>
+    <ellipse cx="32" cy="41" rx="3" ry="2.2" fill="#b4574a"/>
+    <path d="M14 18c4-10 32-10 36 0z" fill="#16203a"/>
+    <rect x="11" y="16" width="42" height="4" rx="2" fill="#16203a"/>
+  </g>
+</svg>

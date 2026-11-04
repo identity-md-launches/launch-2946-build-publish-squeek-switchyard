@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Squeek Switchyard: an unofficial hamster rail puzzle</title>
+    <meta name="description" content="Dispatch five wagons of real Sepolia settlement blocks into three tunnels and keep overflow as low as you can. An unofficial Squeekchain puzzle.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Squeek Switchyard">
+    <meta property="og:description" content="Dispatch five wagons of real Sepolia settlement blocks into three tunnels. Lowest overflow wins.">
+    <meta property="og:image" content="./og.svg">
+    <meta name="theme-color" content="#fff4dc">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body data-board="none">
+    <svg class="sprites" aria-hidden="true" focusable="false">
+      <symbol id="hamster" viewBox="0 0 64 64">
+        <circle cx="16" cy="16" r="9" fill="#c98a4b"/>
+        <circle cx="48" cy="16" r="9" fill="#c98a4b"/>
+        <circle cx="16" cy="16" r="4.5" fill="#f2b8a0"/>
+        <circle cx="48" cy="16" r="4.5" fill="#f2b8a0"/>
+        <ellipse cx="32" cy="36" rx="25" ry="23" fill="#e0a868"/>
+        <ellipse cx="32" cy="45" rx="16" ry="12" fill="#fff4dc"/>
+        <circle cx="23" cy="33" r="3.5" fill="#2a1c10"/>
+        <circle cx="41" cy="33" r="3.5" fill="#2a1c10"/>
+        <ellipse cx="32" cy="41" rx="3" ry="2.2" fill="#b4574a"/>
+        <path d="M32 43v4M26 48c2 2 4 2 6-1 2 3 4 3 6 1" fill="none" stroke="#2a1c10" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M14 18c4-10 32-10 36 0z" fill="#16203a"/>
+        <rect x="11" y="16" width="42" height="4" rx="2" fill="#16203a"/>
+      </symbol>
+    </svg>
+
+    <div class="page">
+      <header class="masthead">
+        <h1>Squeek Switchyard</h1>
+        <a class="masthead-link" href="#how">How to play</a>
+      </header>
+      <p class="lede">Route five wagons into three tunnels. Lowest overflow wins.</p>
+
+      <div class="layout">
+        <main id="main">
+          <p id="announcer" class="visually-hidden" role="status"></p>
+          <noscript><p class="notice">Squeek Switchyard needs JavaScript to read settlement data and run the game.</p></noscript>
+
+          <section id="view-loading" class="notice-panel" aria-labelledby="loading-title">
+            <svg class="hamster" aria-hidden="true" focusable="false"><use href="#hamster"/></svg>
+            <div>
+              <h2 id="loading-title">Fetching settlement batches</h2>
+              <p>Reading the latest safe Sepolia settlements from Squeekchain.</p>
+            </div>
+          </section>
+
+          <section id="view-unavailable" class="notice-panel" aria-labelledby="unavailable-title" hidden>
+            <svg class="hamster" aria-hidden="true" focusable="false"><use href="#hamster"/></svg>
+            <div>
+              <h2 id="unavailable-title">Live board unavailable</h2>
+              <p id="unavailable-reason"></p>
+              <p>Practice uses fixed, made-up numbers, so nothing on that board is Sepolia data.</p>
+              <div class="actions">
+                <button id="retry" class="btn btn-primary" type="button">Try again</button>
+                <button id="practice" class="btn btn-practice" type="button">Practice with made-up numbers</button>
+              </div>
+            </div>
+          </section>
+
+          <div id="view-game" hidden>
+            <p id="practice-banner" class="practice-banner" hidden>Practice board: fixed, made-up numbers. None of this is Sepolia data.</p>
+
+            <div class="status-row">
+              <p id="source-label" class="source-label"></p>
+              <p class="status-item">Clock <span id="clock" class="value">0:00</span> <span class="status-goal">goal under 1:00</span></p>
+              <p class="status-item">Overflow <span id="running-overflow" class="value">0</span></p>
+            </div>
+
+            <ol id="train" class="train" aria-label="Wagons in dispatch order"></ol>
+
+            <section class="current" aria-labelledby="current-title">
+              <svg class="hamster" aria-hidden="true" focusable="false"><use href="#hamster"/></svg>
+              <div class="current-body">
+                <h2 id="current-title"></h2>
+                <dl id="current-details" class="facts">
+                  <div><dt>Blocks</dt><dd id="current-blocks" class="value"></dd></div>
+                  <div><dt>Rounds</dt><dd id="current-rounds" class="value"></dd></div>
+                  <div><dt>Work added</dt><dd id="current-work" class="value"></dd></div>
+                </dl>
+                <a id="current-receipt" class="link" target="_blank" rel="noopener noreferrer"></a>
+                <p id="current-note" class="note" hidden></p>
+              </div>
+            </section>
+
+            <svg id="rails" class="rails" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path class="rail rail-0" d="M150 0C150 22 50 16 50 40" vector-effect="non-scaling-stroke"/>
+              <path class="rail rail-1" d="M150 0V40" vector-effect="non-scaling-stroke"/>
+              <path class="rail rail-2" d="M150 0C150 22 250 16 250 40" vector-effect="non-scaling-stroke"/>
+            </svg>
+
+            <h2 class="visually-hidden">Tunnels</h2>
+            <ul id="tunnels" class="tunnels"></ul>
+            <p class="note">Game rules, not protocol economics: tunnels hold 45%, 33% and the remainder of <span id="total-blocks"></span>.</p>
+
+            <section id="result" class="result" aria-labelledby="result-title" hidden>
+              <h2 id="result-title" tabindex="-1"></h2>
+              <p id="result-verdict" class="result-verdict"></p>
+              <dl class="facts">
+                <div><dt>Best possible</dt><dd id="result-best" class="value"></dd></div>
+                <div><dt>Your time</dt><dd id="result-time" class="value"></dd></div>
+              </dl>
+              <table class="routing">
+                <caption>Your routing beside one optimal routing</caption>
+                <thead>
+                  <tr><th scope="col">Wagon</th><th scope="col">Blocks</th><th scope="col">Your tunnel</th><th scope="col">Best tunnel</th></tr>
+                </thead>
+                <tbody id="result-routing"></tbody>
+              </table>
+              <p id="result-note" class="note"></p>
+            </section>
+
+            <div class="actions controls">
+              <button id="undo" class="btn" type="button">Undo last</button>
+              <button id="replay" class="btn" type="button">Replay board</button>
+              <button id="new-game" class="btn" type="button">New game</button>
+            </div>
+
+            <section class="manifest" aria-labelledby="manifest-title">
+              <h2 id="manifest-title">Wagon manifest and receipts</h2>
+              <p id="manifest-note" class="note"></p>
+              <ol id="manifest" class="manifest-list"></ol>
+            </section>
+          </div>
+        </main>
+
+        <section id="how" class="how" aria-labelledby="how-title">
+          <h2 id="how-title">How to play</h2>
+          <ol>
+            <li>Each wagon carries the completed blocks of one Sepolia settlement batch.</li>
+            <li>Send every whole wagon to a tunnel, oldest wagon first.</li>
+            <li>Blocks past a tunnel’s capacity are overflow. Your score is the total, and lower is better.</li>
+            <li>Try to finish inside a minute. The clock is for fun and never changes your score.</li>
+          </ol>
+          <label class="shortcut-toggle"><input id="shortcuts" type="checkbox" checked> Use keyboard shortcuts</label>
+          <p>Press 1, 2 or 3 to send a wagon to tunnel A, B or C. U undoes, R replays the board and N starts a new game.</p>
+        </section>
+      </div>
+
+      <footer class="footer">
+        <p>An unofficial game for Squeekchain. No wallet, account, tracking or wagers.</p>
+        <ul>
+          <li><a class="link" href="./app.js">Read the game source</a></li>
+          <li><a class="link" href="./rules.js">Read the scoring source</a></li>
+          <li><a class="link" href="https://api.squeekchain.com/v1/settlements" target="_blank" rel="noopener noreferrer">Open the settlements API</a></li>
+        </ul>
+      </footer>
+    </div>
+  </body>
+</html>
